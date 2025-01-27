@@ -2,7 +2,7 @@
 #include<string.h>
 #include "bank.h"
 #include"customer.h"
-
+#include "createacc.h"
 
 void cus_banking_page(BankCustomer *bank_cus,int i)
 {
@@ -131,9 +131,15 @@ void pinchange(BankCustomer *bank_cus,int i)
         printf("!!!Invalid pin!!!");
         cus_banking_page(bank_cus,i);
     }
+cpin:
     printf("Enter the new pin : ");
     scanf(" %s",newpin);
-cpin:
+    if(!validatePin(newpin))
+    {
+        printf("!!!Pin should contain 8 digit and only digits!!!\n");
+        goto cpin;
+    }
+    
     printf("Re-enter the new pin : ");
     scanf(" %s",cnfrmpin);
     if(strcmp(newpin,cnfrmpin)!=0)
